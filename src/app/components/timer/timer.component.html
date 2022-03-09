@@ -1,34 +1,38 @@
 <main class="timer">
     <div class="list">
-        <div class="clock"></div>
-        <p [ngStyle]="{'opacity':soundStamp > 0 ? 1 : 0 }">Stop every: {{soundStamp | displayTime}}</p>
-        <p [ngStyle]="{'opacity':breakStamp > 0 ? 1 : 0 }">Warning every: {{breakStamp | displayTime}}</p>
+        <div class="clock" [ngStyle]="drawBreakStamp()">
+            <span>
+                <div [ngStyle]="drawSoundStamp()">
+                    <span></span>
+                </div>
+            </span>
+        </div>
+        <p [ngStyle]="{'opacity':soundStamp > 0 ? 1 : 0 }">Warning every: {{soundStamp | displayTime}}</p>
+        <p [ngStyle]="{'opacity':breakStamp > 0 ? 1 : 0 }">Stop every: {{breakStamp | displayTime}}</p>
     </div>
     <div class="count">
         {{ milliseconds | displayTime }}
     </div>
     <div class="buttons">
         <div class="controllers">
-            <span (click)="setSoundStamp()" class="sound" [class.border-selected]="addSoundStamp">
-                <img src="https://cdn-icons-png.flaticon.com/512/59/59284.png" alt="play"/>
+            <span (click)="play = !play">
+                <div *ngIf="!play">Start</div>
+                <div *ngIf="play">Stop</div>
             </span>
-            <span (click)="setBreakStamp()" class="stopper" [class.border-selected]="addBreakStamp">
-                <img src="https://cdn-icons-png.flaticon.com/512/87/87586.png" alt="play"/>
-            </span>
-            <span (click)="play = !play" class="pause">
-                <img *ngIf="!play" src="https://cdn-icons-png.flaticon.com/512/27/27223.png" alt="play"/>            
-                <img *ngIf="play" src="https://cdn-icons.flaticon.com/png/512/2920/premium/2920686.png?token=exp=1639513577~hmac=be02e6ecf601a01351f3d8e89498c303" alt="pause"/>
-            </span>
-            <span (click)="reset()" class="clear" [class.border-selected-clear]="addSoundStamp || addBreakStamp">
-                <img *ngIf="!(addSoundStamp || addBreakStamp)" src="https://cdn-icons-png.flaticon.com/512/82/82004.png" alt="reset"/>
-                <img *ngIf="addSoundStamp || addBreakStamp" src="https://cdn-icons.flaticon.com/png/512/640/premium/640143.png?token=exp=1640266503~hmac=4dc3ee384ec3002fd5f3158073c608b0" alt="pause"/>
+            <span (click)="reset()" class="pause">
+                <div>Reset</div>
             </span>
         </div>
-        <div class="more-time" [class.show-buttons]="addSoundStamp || addBreakStamp">
-            <span (click)="addTime(60000)" class="sound">+ 10m</span>
-            <span (click)="addTime(6000)" class="sound">+ 1m</span>
-            <span (click)="addTime(1000)" class="sound">+ 10s</span>
-            <span (click)="addTime(100)" class="sound">+ 1s</span>
+        <div class="actions">
+            <span (click)="setBreakStamp()" [class.border-selected]="addBreakStamp">Break stamp</span>
+            <span (click)="setSoundStamp()" [class.border-selected]="addSoundStamp">Warning stamp</span>
+        </div>
+        <div class="time-options" [class.show-buttons]="addSoundStamp || addBreakStamp">
+            <span (click)="addTime(60000)">+ 10m</span>
+            <span (click)="addTime(6000)">+ 1m</span>
+            <span (click)="addTime(1000)">+ 10s</span>
+            <span (click)="addTime(100)">+ 1s</span>
+            <span (click)="clear()" class="clear">Clear</span>
         </div>
     </div>
 </main>

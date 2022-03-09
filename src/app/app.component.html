@@ -1,7 +1,7 @@
 <main class="container">
-  <!-- <button>More</button>
-  <span>Info</span> -->
+  <button (click)="addTimer()">More</button>
+  <span>Info</span>
   <div>
-    <app-timer></app-timer>
+    <app-timer *ngFor="let timer of timerCount()"></app-timer>
   </div>  
 </main>

@@ -8,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class TimerComponent implements OnInit {
 
   milliseconds: number = 0;
+  display: number = 0;
+  startTime?: any;
+  endTime?: any;
 
   play: boolean = false;
 
@@ -26,7 +29,10 @@ export class TimerComponent implements OnInit {
       if(this.milliseconds > 0){
         if(this.milliseconds%this.soundStamp === 0 && this.play){
           this.audio.play();
-          setTimeout(() => this.audio.pause(), 1000);
+          setTimeout(() => {
+            this.audio.pause();
+            this.audio.currentTime = 0
+          }, 1000);
         }
         if(this.milliseconds%this.breakStamp === 0){
           this.play = false;
@@ -35,19 +41,35 @@ export class TimerComponent implements OnInit {
     }, 10);
   }
 
+  drawSoundStamp(){
+    var soundStampPercent = (360 - (((this.soundStamp - this.milliseconds)/this.soundStamp)*360))%360;
+    return {
+      "background-image": `conic-gradient(transparent ${soundStampPercent}deg, white ${1/soundStampPercent}deg)`
+    };
+  }
+
+  drawBreakStamp(){
+    var breakStampPercent = (360 - (((this.breakStamp - this.milliseconds)/this.breakStamp)*360))%360;
+    return {
+      "background-image": `conic-gradient(transparent ${breakStampPercent}deg, white ${1/breakStampPercent}deg)`
+    };
+  }
+
   increment(){
     if(this.play){
       this.milliseconds += 1;
-    }
+    }    
   }
 
   reset(){
+    this.milliseconds = 0;
+  }
+
+  clear(){
     if(this.addSoundStamp){
       this.soundStamp = 0;
     }else if(this.addBreakStamp){
       this.breakStamp = 0;
-    }else{
-      this.milliseconds = 0;
     }
   }
 

@@ -6,5 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'timer';
+  timers: number = 1;
+
+  addTimer(){
+    this.timers += 1
+  }
+
+  timerCount(){
+    return Array(this.timers).fill('')
+  }
+
 }

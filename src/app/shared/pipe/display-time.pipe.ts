@@ -18,6 +18,12 @@ export class DisplayTimePipe implements PipeTransform {
             minutes = minutes%60
         }
 
-        return `${('0' + hours).slice(-2)}:${('0' + minutes).slice(-2)}:${('0' + seconds).slice(-2)},${('0' + milliseconds%100).slice(-2)}`;
+        if(milliseconds >= 360000){
+            return `${('0' + hours).slice(-2)}:${('0' + minutes).slice(-2)}:${('0' + seconds).slice(-2)}:${('0' + milliseconds%100).slice(-2)}`;
+        }else if (milliseconds >= 6000){
+            return `${('0' + minutes).slice(-2)}:${('0' + seconds).slice(-2)}:${('0' + milliseconds%100).slice(-2)}`;
+        }else{
+            return `${('0' + seconds).slice(-2)}:${('0' + milliseconds%100).slice(-2)}`;
+        }
     }
 }
