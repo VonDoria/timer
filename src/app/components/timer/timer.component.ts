@@ -90,4 +90,13 @@ export class TimerComponent implements OnInit {
       this.breakStamp += howMuch;
     }
   }
+
+  deleteTimer(element: HTMLElement){
+    this.play = false;
+    element.parentElement?.remove()
+  }
+
+  enableDeleteButton(){
+    return document.querySelectorAll(".timer").length > 1;
+  }
 }

@@ -1,4 +1,5 @@
-<main class="timer">
+<main class="timer" #thisTimer>
+    <button *ngIf="enableDeleteButton()" (click)="deleteTimer(thisTimer)">X</button>
     <div class="list">
         <div class="clock" [ngStyle]="drawBreakStamp()">
             <span>

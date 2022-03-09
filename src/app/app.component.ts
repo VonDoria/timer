@@ -13,7 +13,7 @@ export class AppComponent {
   }
 
   timerCount(){
-    return Array(this.timers).fill('')
+    return Array(this.timers).map((x,i)=>i);
   }
 
 }

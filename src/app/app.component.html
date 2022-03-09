@@ -1,7 +1,10 @@
 <main class="container">
-  <button (click)="addTimer()">More</button>
-  <span>Info</span>
-  <div>
+  <div class="controll">
+    <a href="https://github.com/VonDoria/timer" target="_blank">Info</a>
+    <span>Count: {{ timerCount().length }}</span>
+    <button (click)="addTimer()">&#43;</button>
+  </div>
+  <div class="carousel">
     <app-timer *ngFor="let timer of timerCount()"></app-timer>
   </div>  
 </main>
